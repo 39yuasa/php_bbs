@@ -1,23 +1,30 @@
 <?php
     session_start();
-    include("connect.php");
-
+    include('connect.php');
     if( !isset( $_SESSION['join']) ){ // SESSION内にデータがない場合は再入力させる処理
         header( 'Location: newuser.php');
         exit();
     }
-    if( isset( $_POST['sub']) ){
-        //ユーザ登録処理を行う
-        $sql = sprintf('INSERT INTO users SET user="%s", password="%s"',
-                    mysqli_real_escape_string( $con, $_SESSION['join']['user']),
-                    mysqli_real_escape_string( $con, $_SESSION['join']['pass']) ); //SQL文の作成
-        mysqli_query( $con, $sql ); //SQL文の実行
-        unset( $_SESSION['join'] ); //SESSIONを削除
-
-        header('Location: thanks.html');
-        exit();
-    }
-    mysqli_close( $com );
+    // if( isset( $_POST['sub'])){
+    //     //ユーザ登録処理を行う
+    //     $sql = sprintf('INSERT INTO users SET name="%s", password="%s"',
+    //                 mysqli_real_escape_string( $com, $_SESSION['join']['user']),
+    //                 mysqli_real_escape_string( $com, $_SESSION['join']['pass']) ); //SQL文の作成           
+    //     mysqli_query( $com, $sql ); //SQL文の実行
+    //     unset( $_SESSION['join'] ); //SESSIONを削除
+    //     header('Location: thanks.html');
+    //     exit();
+    // }
+    if(isset($_POST['sub'])):
+        // ユーザー登録の処理を行う
+         $name = $_SESSION['join']['user'];
+         $pass =$_SESSION['join']['pass'];
+         $sql = sprintf("INSERT INTO users  SET name = '%s' , password ='%s'", mysqli_real_escape_string($com,$name), mysqli_real_escape_string($com,$pass));
+         mysqli_query($com , $sql);
+         unset($_SESSION['join']); //  SESSIONを削除
+         header('Location:thanks.html');
+    endif;
+    mySqli_close($com);
 ?>
 <!DOCTYPE html>
 <html lang="en">
