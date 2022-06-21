@@ -31,7 +31,7 @@ if(!empty($_POST)):
         header("Location: check.php");
         // checkへ移動
 endif;
-
+endif;
 ?>
 
 <!DOCTYPE html>
@@ -45,11 +45,30 @@ endif;
 <body>
     <h2>ユーザー登録</h2>
     <form action="" method = 'post'>
-        <p>ユーザー名: <input type="text" name='user'></p>
-
-        <p>パスワード: <input type="password" name="pass"></p>
-
-        <input type="submit" name="sub">
+    <p>ユーザ名：<input type="text" name="user"></p>
+        <?php
+            if( $error["user"] == "blank" ):
+        ?>
+            <p>ユーザ名を入力してください</p>
+        <?php
+            endif;
+        ?>
+        <p>パスワード：<input type="password" name="pass"></p>
+        <?php
+            if( $error["pass"] == "blank" ):
+        ?>
+            <p>パスワードを入力してください</p>
+        <?php
+            endif;
+        ?>
+        <?php
+            if( $error["pass"] == "length" ):
+        ?>
+            <p>パスワードは6文字以上で入力してください</p>
+        <?php
+            endif;
+        ?>
+        <input type="submit" name="sub" value="登録">
     </form>
 </body>
 </html>

@@ -17,7 +17,7 @@
         header('Location: thanks.html');
         exit();
     }
-    mysqli_close( $con );
+    mysqli_close( $com );
 ?>
 <!DOCTYPE html>
 <html lang="en">
