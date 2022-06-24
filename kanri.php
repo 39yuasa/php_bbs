@@ -51,13 +51,13 @@
         // 写真を勝手に処理してくれる関数発動
         //アップデートの処理はやっていること一緒
         $sql = "UPDATE bbs SET img='{$img}' WHERE id='{$cid}'";
-        $rst = mysqli_query($con, $sql);
+        $rst = mysqli_query($com, $sql);
     }
 
     $sql = "SELECT *,bbs.id as b_id, users.name as u_name
     FROM bbs LEFT JOIN users 
     ON bbs.u_id = users.id ORDER BY bbs.id DESC";
-    $rst = mysqli_query( $con, $sql );
+    $rst = mysqli_query( $com, $sql );
 
     while( $row = mysqli_fetch_array( $rst )){
         $m .= "<p>".$row["b_id"]." ";
@@ -69,7 +69,7 @@
         }
     }
     mysqli_free_result( $rst );
-    mysqli_close( $con );
+    mysqli_close( $com );
 
     //48から63行目、bbsのページに書いてある
 
@@ -100,7 +100,7 @@
         <!-- 画像変更 -->
         <p>画像の変更</p>
         <p>画像変更するコメントID：<input type="text" name="imgid"></p>
-        <p>画像(GIF/JPEG形式、100KB以下):<input type="file" name="uploadfile" size="40"></p>
+        <p>画像(GIF/JPEG形式、100KB以下):<input type="file" name="uploadFile" size="40"></p>
         <p><input type="submit" name="imgsub" value="変更"></p>
     </form>
     <?php

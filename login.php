@@ -10,7 +10,7 @@ if(!empty($_POST)):
         if($row = mysqli_fetch_assoc($rst)):
             $_SESSION['userId'] = $row['id'];
             $_SESSION['username'] = $row['user'];
-            header('Location:bbs.php');
+            header('Location:kanri.php');
             exit();
         else:
             echo '登録されていません';
