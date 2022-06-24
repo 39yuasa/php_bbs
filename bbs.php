@@ -2,6 +2,7 @@
 session_start();
 include('img_file_name.php');
 include('connect.php');
+// includeは外部ファイルをつなげる役割をしている
 $m = '';
 
 // データベースに保存する処理
@@ -9,11 +10,13 @@ if(isset($_POST['sub'])):
     $u_id = $_SESSION['userId'];
     $msg = $_POST['msg'];
     $img = img_file_name();
+    // include('img_file_name.php')の中にある img_file_name()を働かせて値を取得している
     // 写真を処理してくれるもの
     $sql = "INSERT INTO bbs (u_id , msg , date , img)
             VALUES ('{$u_id}' , '{$msg}' , now() , '{$img}')";
-            //持ってきたデータベースの箱に対して順番に入れる
-    $rst = mysqli_query($com , $sql);     
+    //持ってきたデータベースの箱に対して順番に入れる
+    $rst = mysqli_query($com , $sql);    
+     $
 endif; 
 
 //2つのテーブルを結合させて必要なデータを抽出する
@@ -27,19 +30,26 @@ ON bbs.u_id = users.id ORDER BY bbs.id DESC";
 
 $rst = mysqli_query( $com, $sql );
 while( $row = mysqli_fetch_array( $rst )){
+    // 取ってきた情報をrowに配列として情報を返す
 $m .= "<p>".$row["bba_id"]." ";
+// . = >文字のつなぎ , .= => jsの+=と同じ意味
 $m .= $row["use_name"]." ";
 $m .= $row["date"]."</p>";
 $m .= "<p>".nl2br( $row["msg"])."</p>";
+// rowの中に入れてある情報を取りだしている
 if( $row["img"] != NULL ){
+    // 写真が投稿されているかの判断
+    // !=でnullじゃない => 差y心が入っている
 $m .= "<p><img src='upload/".$row['img']."' width='20%' height='20%'></p>";
 }else{
+    //写真が入っていないときに行われる処理
     echo 'ahh';
 }
 }
 mysqli_free_result( $rst );
+//使わないメモリの開放
 mysqli_close( $com );
-// 28-41ずっと使っているので割愛
+// データベース接続の切断
 
 
 ?>
