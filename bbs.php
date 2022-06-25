@@ -16,7 +16,6 @@ if(isset($_POST['sub'])):
             VALUES ('{$u_id}' , '{$msg}' , now() , '{$img}')";
     //持ってきたデータベースの箱に対して順番に入れる
     $rst = mysqli_query($com , $sql);    
-     $
 endif; 
 
 //2つのテーブルを結合させて必要なデータを抽出する

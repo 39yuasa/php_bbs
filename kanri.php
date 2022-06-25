@@ -1,7 +1,22 @@
+
 <?php
+session_start();
     include("connect.php");
     include("img_file_name.php");
     $m = "";
+    
+// データベースに保存する処理
+if(isset($_POST['sub'])):
+    $u_id = $_SESSION['userId'];
+    $msg = $_POST['msg'];
+    $img = img_file_name();
+    // include('img_file_name.php')の中にある img_file_name()を働かせて値を取得している
+    // 写真を処理してくれるもの
+    $sql = "INSERT INTO bbs (u_id , msg , date , img)
+            VALUES ('{$u_id}' , '{$msg}' , now() , '{$img}')";
+    //持ってきたデータベースの箱に対して順番に入れる
+    $rst = mysqli_query($com , $sql);    
+endif; 
 
     //ユーザ名の変更
     if( isset( $_POST["movesub"])){
@@ -83,8 +98,15 @@
     <title>Document</title>
 </head>
 <body>
+  
+    <h2>投稿画面</h2>
+    <p>投稿者：<?php echo $_SESSION['username'] ;?></p>
+    <form action="" method = "post"  accept-charset="UTF-8" enctype="multipart/form-data">
+        <p><textarea name="msg" cols="70" rows="10"></textarea></p>
+        画像(GIF/JPEG形式、100KB以下):<input type="file" name="uploadFile" size="40">
+        <input type="submit" name="sub" value="投稿">
+    </form>
     <h1>管理画面</h1>
-
     <form method="post" action="" accept-charset="UTF-8" enctype="multipart/form-data">
         <!-- ユーザ名の変更 -->
         <p>ユーザ名の変更</p>
